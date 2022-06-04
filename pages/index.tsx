@@ -7,17 +7,23 @@ import styles from "../styles/Home.module.css";
 import { Filters as FiltersType } from "../types/Filters.type";
 import { Sheet1 } from "../types/Sheet1.type";
 import { TireSets } from "../types/TireSets.type";
+import useDrivePicker from "react-google-drive-picker";
+
+const activeFiltersDefault = {
+  Model: undefined,
+  Width: undefined,
+  Profile: undefined,
+  Diameter: undefined,
+};
 
 const Home: NextPage = () => {
+  const [openPicker, authResponse] = useDrivePicker();
+
   const [tireData, setTireData] = useState<Sheet1[] | []>([]);
   const [tireSets, setTireSets] = useState<TireSets | undefined>(undefined);
   const [displayData, setDisplayData] = useState<Sheet1[] | []>([]);
-  const [activeFilters, setActiveFilters] = useState<FiltersType>({
-    Model: undefined,
-    Width: undefined,
-    Profile: undefined,
-    Diameter: undefined,
-  });
+  const [activeFilters, setActiveFilters] =
+    useState<FiltersType>(activeFiltersDefault);
 
   // useEffect(() => {
   //   console.log(tireSets);
@@ -25,6 +31,25 @@ const Home: NextPage = () => {
   //   console.log(displayData);
   //   console.log(activeFilters);
   // });
+  const handleOpenPicker = () => {
+    openPicker({
+      clientId: process.env.NEXT_PUBLIC_OAUTH_CLIENT_ID!,
+      developerKey: process.env.NEXT_PUBLIC_API_KEY!,
+      viewId: "DOCS",
+      // token: token, // pass oauth token in case you already have one
+      showUploadView: true,
+      showUploadFolders: true,
+      supportDrives: true,
+      multiselect: true,
+      // customViews: customViewsArray, // custom view
+      callbackFunction: (data) => {
+        if (data.action === "cancel") {
+          console.log("User clicked cancel/close button");
+        }
+        console.log(data);
+      },
+    });
+  };
 
   useEffect(() => {
     setDisplayData([]);
@@ -72,12 +97,7 @@ const Home: NextPage = () => {
   };
 
   const resetFilters = () => {
-    setActiveFilters({
-      Model: undefined,
-      Width: undefined,
-      Profile: undefined,
-      Diameter: undefined,
-    });
+    setActiveFilters(activeFiltersDefault);
   };
 
   return (
@@ -93,6 +113,7 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <h1 className={styles.title}>Tire Pricing App</h1>
+        <button onClick={handleOpenPicker}>Open Picker</button>
         <FileUpload getTireSets={setTireSets} getTireData={setTireData} />
         <Filters
           activeFilters={activeFilters}
