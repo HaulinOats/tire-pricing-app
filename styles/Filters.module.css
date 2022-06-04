@@ -1,0 +1,14 @@
+.filterSelect {
+  padding: 5px;
+  font-size: 110%;
+}
+.resetFilters {
+  padding: 5px;
+  border: solid thin black;
+  box-shadow: 2px 2px 3px black;
+  border-radius: 5px;
+  margin-left: 5px;
+}
+.resetFilters:active {
+  box-shadow: none;
+}
