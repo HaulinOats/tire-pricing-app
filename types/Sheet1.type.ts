@@ -5,11 +5,11 @@ export interface Sheet1 {
   Condition: string;
   Diameter: number;
   "LT/P": string;
-  Load: 101;
-  Model: "Destination LE2";
-  Price: 74.99;
-  Profile: 55;
-  Quantity: 1;
+  Load: number;
+  Model: string;
+  Price: number;
+  Profile: number;
+  Quantity: number;
   Speed: string;
   "Tread Depth": string;
   treadLow?: number;

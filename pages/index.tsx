@@ -17,7 +17,6 @@ const activeFiltersDefault = {
 
 const Home: NextPage = () => {
   const [isLoadingData, setIsLoadingData] = useState(true);
-  const [renderFilters, setRenderFilters] = useState(Date.now());
   const [tireData, setTireData] = useState<Sheet1[] | []>([]);
   const [tireSets, setTireSets] = useState<TireSets | undefined>(undefined);
   const [displayData, setDisplayData] = useState<Sheet1[] | []>([]);
@@ -139,8 +138,7 @@ const Home: NextPage = () => {
   };
 
   const resetFilters = () => {
-    setActiveFilters(activeFiltersDefault);
-    setRenderFilters(Date.now());
+    setActiveFilters({ ...activeFiltersDefault });
   };
 
   const getThresholdHTML = (price: number) => {
@@ -168,7 +166,7 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <h1 className={styles.title}>Tire Pricing App</h1>
         {/* <FileUpload getTireSets={setTireSets} getTireData={setTireData} /> */}
-        <Filters key={renderFilters} activeFilters={activeFilters} tireSets={tireSets} applyFilter={applyFilter} resetFilters={resetFilters} />
+        <Filters activeFilters={activeFilters} tireSets={tireSets} applyFilter={applyFilter} resetFilters={resetFilters} />
         {displayData.length > 0 && (
           <table className={styles.displayDataContainer}>
             <thead>
@@ -194,7 +192,7 @@ const Home: NextPage = () => {
               {displayData.map((item, idx) => {
                 return (
                   <tr key={item["Part #"] + idx} className={styles.displayMainRow}>
-                    <td className={styles.displayMainCell}>{item["part #"]}</td>
+                    <td className={styles.displayMainCell}>{item["Part #"]}</td>
                     <td className={styles.displayMainCell}>{item["Tread Depth"]}</td>
                     <td className={styles.displayMainCell}>{item["Condition"]}</td>
                     <td className={styles.displayMainCell}>{item["Brand"]}</td>

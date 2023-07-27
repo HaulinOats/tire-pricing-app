@@ -15,19 +15,12 @@ const Filters: React.FC<FiltersProps> = (props) => {
   return (
     <div>
       {Object.keys(props.activeFilters).map((filterKey, idx) => {
-        console.log({ filterKey, idx });
         return (
           <select key={filterKey + idx} onChange={(e) => props.applyFilter(filterKey, e.currentTarget.value)} className={styles.filterSelect}>
-            <option value="">- Select A {filterKey} -</option>
+            <option selected={props.activeFilters[filterKey] === undefined ? true : false}>- Select A {filterKey} -</option>
             {props.tireSets?.[filterKey].map((value) => {
               return (
-                <option
-                  key={value}
-                  value={value}
-                  // selected={
-                  //   props.activeFilters[filterKey] === value ? true : false
-                  // }
-                >
+                <option key={value} value={value} selected={props.activeFilters[filterKey] === value ? true : false}>
                   {value}
                 </option>
               );
