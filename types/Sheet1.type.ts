@@ -16,5 +16,5 @@ export interface Sheet1 {
   treadHigh?: number;
   Width: number;
   "ZR/R": string;
-  "part #": string;
+  "Part #": string;
 }

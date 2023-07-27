@@ -20,7 +20,7 @@ const FileUpload: React.FC<FileUploadProps> = (props) => {
       Model: [],
       Width: [],
       Profile: [],
-      Diameter: [],
+      Diameter: []
     };
 
     let tireData: Sheet1[] = [];
@@ -28,7 +28,7 @@ const FileUpload: React.FC<FileUploadProps> = (props) => {
     for (const sheet in workbook.Sheets) {
       let sheetArr: any = utils.sheet_to_json(workbook.Sheets[sheet]);
       switch (sheet) {
-        case "Sheet1":
+        case "sheet 1":
           for (let i = 0; i < sheetArr.length; i++) {
             tireData.push(sheetArr[i]);
             ["Model", "Width", "Profile", "Diameter"].forEach((key) => {
@@ -36,24 +36,15 @@ const FileUpload: React.FC<FileUploadProps> = (props) => {
             });
           }
           break;
-        case "LAB":
-          break;
-        case "Pallet":
-          break;
-        case "Size Distribution":
-          break;
-        case "testing":
-          break;
+        default:
       }
     }
     for (const key in tireSets) {
-      tireSets[key] = Array.from(new Set(tireSets[key])).sort(
-        (a: any, b: any) => {
-          if (a < b) return -1;
-          if (a > b) return 1;
-          return 0;
-        }
-      );
+      tireSets[key] = Array.from(new Set(tireSets[key])).sort((a: any, b: any) => {
+        if (a < b) return -1;
+        if (a > b) return 1;
+        return 0;
+      });
     }
     props.getTireSets(tireSets);
     props.getTireData(tireData);
