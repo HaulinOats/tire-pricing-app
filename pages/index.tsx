@@ -30,7 +30,7 @@ const Home: NextPage = () => {
     function handleKeyDown(e: KeyboardEvent) {
       keysPressed.add(e.key);
       if (keysPressed.has("Shift") && keysPressed.has("T")) {
-        toggleShowPrice();
+        setShowPrice((curr) => !curr);
       }
     }
 
@@ -91,11 +91,6 @@ const Home: NextPage = () => {
     } catch (err) {
       alert(`there was an error grabbing the file: ${err}`);
     }
-  };
-
-  const toggleShowPrice = () => {
-    console.log("toggle show price");
-    setShowPrice(!showPrice);
   };
 
   useEffect(() => {
