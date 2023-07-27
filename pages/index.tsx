@@ -78,8 +78,8 @@ const Home: NextPage = () => {
       }
       for (const key in tireSets) {
         tireSets[key] = Array.from(new Set(tireSets[key])).sort((a: any, b: any) => {
-          if (a < b) return -1;
-          if (a > b) return 1;
+          if (a.toString() < b.toString()) return -1;
+          if (a.toString() > b.toString()) return 1;
           return 0;
         });
       }
